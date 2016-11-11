@@ -5,15 +5,15 @@
     'description': """
         Add sequence number in cart and receipt
     """,
-    'category': 'POS',
+    'category': 'Point of Sale',
     'version': '1.0',
     'author' : 'Shelton',
     'depends': ['point_of_sale'],
     'data': [
-        #'security/ir.model.access.csv',
-        #'views/template.xml',
-        #'views/product_template_view.xml',
-        #'views/website_sale_templates.xml',
+        'views/pos_cart_seq_templates.xml',
+    ],
+    'qweb': [
+        'static/src/xml/pos.xml',
     ],
     'installable': True,
     'application': True,

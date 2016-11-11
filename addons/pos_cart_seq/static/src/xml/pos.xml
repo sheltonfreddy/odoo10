@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+	<t t-extend="PosTicket">
+			<t t-jquery="t[t-foreach*='orderlines'][t-as*='orderline']" t-operation="append">
+	                <td>
+	                	<t t-esc="orderline.line_no"/>.
+	                </td>
+	         </t>
+	</t>
+	
+</templates>
