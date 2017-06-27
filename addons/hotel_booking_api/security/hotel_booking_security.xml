@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="1">
+
+    <record id="base.group_can_book_hotel" model="res.groups">
+        <field name="name">Booking User</field>
+        <field name="comment">This user can book hotel</field>
+    </record>
+
+    <record id="base.group_hotel_booking_manager" model="res.groups">
+        <field name="name">Booking Manager</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_can_book_hotel'))]"/>
+        <field name="comment">This user can manage all the booking</field>
+    </record>
+    
+    <record id="base.group_agency_admin" model="res.groups">
+        <field name="name">Agency Admin</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_hotel_booking_manager'))]"/>
+        <field name="comment">This user can manage all the agencies</field>
+    </record>
+    
+    <record id="agency_data_manager_rule" model="ir.rule">
+        <field name="name">Agency Data</field>
+        <field name="model_id" ref="model_agency_data"/>
+        <field name="domain_force">[('id','=',user.agency_id.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_hotel_booking_manager'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    
+    <record id="booked_hotel_manager_rule" model="ir.rule">
+        <field name="name">Booked Hotels Manager</field>
+        <field name="model_id" ref="model_booked_hotels"/>
+        <field name="domain_force">[('booked_user_id.agency_id.id','=',user.agency_id.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_hotel_booking_manager'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+    
+    <record id="booked_hotel_user_rule" model="ir.rule">
+        <field name="name">Booked Hotels User</field>
+        <field name="model_id" ref="model_booked_hotels"/>
+        <field name="domain_force">[('booked_user_id.id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_can_book_hotel'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+    
+    <record id="helpdesk_user_rule" model="ir.rule">
+        <field name="name">Helpdesk User</field>
+        <field name="model_id" ref="model_agency_helpdesk"/>
+        <field name="domain_force">[('user_id.id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_can_book_hotel'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    
+    <record id="helpdesk_manager_rule" model="ir.rule">
+        <field name="name">Helpdesk Manager</field>
+        <field name="model_id" ref="model_agency_helpdesk"/>
+        <field name="domain_force">[('user_id.agency_id.id','=',user.agency_id.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_hotel_booking_manager'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    
+    <record id="medical_submission_user_rule" model="ir.rule">
+        <field name="name">Medical Submission User</field>
+        <field name="model_id" ref="model_medical_submission"/>
+        <field name="domain_force">[('user_id.id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_can_book_hotel'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    
+    <record id="medical_submission_manager_rule" model="ir.rule">
+        <field name="name">Medical Submission Manager</field>
+        <field name="model_id" ref="model_medical_submission"/>
+        <field name="domain_force">[('user_id.agency_id.id','=',user.agency_id.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_hotel_booking_manager'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    
+    <record id="education_submission_user_rule" model="ir.rule">
+        <field name="name">Education Submission User</field>
+        <field name="model_id" ref="model_education_submission"/>
+        <field name="domain_force">[('user_id.id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_can_book_hotel'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    
+    <record id="education_submission_manager_rule" model="ir.rule">
+        <field name="name">Education Submission Manager</field>
+        <field name="model_id" ref="model_education_submission"/>
+        <field name="domain_force">[('user_id.agency_id.id','=',user.agency_id.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_hotel_booking_manager'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    
+
+</data>
+</openerp>

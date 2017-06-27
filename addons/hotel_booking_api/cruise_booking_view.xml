@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="cruise_booking_view_form" model="ir.ui.view">
+            <field name="name">cruise_booking.view.form</field>
+            <field name="model">cruise.booking</field>
+            <field name="arch" type="xml">
+                <form string="Book Cruise">
+                    <group col="4">
+                    	<field colspan="4" name="customer_id"/>
+                        <field colspan="2" name="destination_id"/>
+                        <field colspan="2" name="port_id" domain="[('destination_id','=', destination_id)]"/>
+                        <field colspan="2" name="cruiseline_id"/>
+                        <field colspan="2" name="ship_id" domain="[('cruiseline_id','=', cruiseline_id)]"/>
+                        
+                        <group string="Departing in" col="4" colspan="4">
+	                        <field colspan="2" name="from_date"/>
+	                        <field colspan="2" name="to_date"/>
+	                        <field colspan="2" name="cruise_length"/>
+                        </group>
+                        
+                        
+                        <button name="search_cruise" type="object" string="Search Cruise"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+         <record id="cruise_booking_view_tree" model="ir.ui.view">
+            <field name="name">cruise_booking.view.tree</field>
+            <field name="model">cruise.booking</field>
+            <field name="arch" type="xml">
+                <tree string="Cruise Booking">
+                    <field name="destination_id"/>
+                    <field name="customer_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="cruise_booking_view_search" model="ir.ui.view">
+            <field name="name">cruise_booking.view.search</field>
+            <field name="model">cruise.booking</field>
+            <field name="arch" type="xml">
+                <search string="Cruise Booking">
+                    <field name="destination_id"/>
+                    <field name="customer_id"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_cruise_booking" model="ir.actions.act_window">
+            <field name="name">cruise Booking</field>
+            <field name="res_model">cruise.booking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="search_view_id" ref="cruise_booking_view_search"/>
+        </record>
+        
+        <menuitem action="action_cruise_booking" id="menu_cruise_booking" 
+        		parent="menu_main_hotels" name="Cruise Booking" 
+        		sequence="11"/>
+
+
+    </data>
+</openerp>

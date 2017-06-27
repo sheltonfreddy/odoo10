@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="report_act_booking_info">
+ 			<t t-call="report.html_container">
+	            <t t-call="report.external_layout">
+	            	<t t-foreach="docs" t-as="o">
+	            		<div class="page">
+	            			<div class="row">
+	            			    <center>
+	            			 		<h4> BOOKING INFORMATION </h4>
+	            			 	</center>
+	            			 	<div class="col-xs-6">
+	            			 		<span><strong>Booking Reference</strong></span><br></br>
+	            			 		<span t-field="o.reservationId"/><br></br><br></br><br></br><br></br>
+	            			 	</div>
+	            			 	<div class="col-xs-6"  style='padding-left:100px;'>
+	            			 	    <span><strong>Booked On</strong></span><br></br>
+	            			 	    <span t-field="o.booked_on"/><br></br><br></br>
+			                   		<span><strong>Support</strong></span><br></br>
+			                   		<span>Spire Co,</span><br></br>
+									<span>P O Box 30008 Budayia -</span><br></br>
+									<span>Bahrain</span><br></br>	
+                                    <span>MANAMA,BAHRAIN</span><br></br>
+                                    <span>Tel : 17100081</span><br></br>
+			           		    </div>
+			           		    <br></br>
+	            			 </div>
+	            			 <div class="row zero_min_height">
+           						<div class="col-xs-12">
+           						    <br></br>
+                					<div style="border-bottom: 1px solid black;"></div>
+                					<br></br>
+           						</div>
+       						 </div>
+	            			 <div class="row">
+	            			    <div class="col-xs-6">
+	            					<span><strong>Activity Details</strong></span><br></br>
+	            			    	<span t-field="o.name"/><br></br><br></br>
+	            			    </div>
+	            			 </div>
+	            			 <div class="row zero_min_height">
+           						<div class="col-xs-12">
+                					<div style="border-bottom: 1px solid black;"></div>
+                					<br></br>
+           						</div>
+       						 </div>
+	            			 <div class="row">
+	            				<div class="col-xs-4">
+	            					<span><strong>Booking Date: </strong></span>
+	            					<span t-field="o.booking_date"/><br></br>
+	            				</div>
+	            			 </div>
+	            			 <div class="row zero_min_height">
+           						<div class="col-xs-12">
+           						    <br></br>
+                					<div style="border-bottom: 1px solid black;"></div>
+                					<br></br>
+                					<br></br>
+           						</div>
+       						 </div>
+	            			 <table class="table" border="1" style="border:1px solid black;border-collapse:collapse;">
+	            			 	<thead>
+                    				<tr>
+                        				<th class="text-center" style="border:1px solid black;">Passenger Name</th>
+                        				<th class="text-center" style="border:1px solid black;">Type</th>
+                    				</tr>
+                    			</thead>
+                    			<tbody>
+               						<tr t-foreach="o.passenger_ids" t-as="lines">
+               						    <td style="border:1px solid black;" class="text-center">
+               						    	<span t-field="lines.name"/>
+               						    </td>
+               						    <td style="border:1px solid black;" class="text-center">
+               						    	<span t-field="lines.type"/>
+               						    </td>
+                                	</tr>
+                                </tbody>
+	            			 </table>
+	            			 <div class="row" name="total">
+                				<div class="col-xs-4 pull-right">
+                   					 <table class="table table-condensed">
+                        				<tr>
+                            				<td><strong>Total Amount</strong></td>
+                            				<td class="text-right">
+                                			<span t-field="o.total"/>
+                            				</td>
+                        				</tr>
+                    				</table>
+                				</div>
+            		        
+	            			  
+	            			 </div> 
+	            			 </div>
+                 	</t>
+  				</t>
+  			</t>
+       </template>
+    </data>
+</openerp>

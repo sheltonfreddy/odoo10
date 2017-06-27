@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="agency_data_view_form" model="ir.ui.view">
+            <field name="name">agency_data.view.form</field>
+            <field name="model">agency.data</field>
+            <field name="arch" type="xml">
+                <form string="Agency Data">
+                	<sheet>
+	                	<field name="agency_logo" widget='image' class="oe_avatar"/> <!-- options='{"preview_image": "image_medium"}' -->
+	                	<div class="oe_title">
+	                		<h1>
+	                            <field name="name" default_focus="1" placeholder="Name"/>
+	                        </h1>
+	                    </div>
+	                    <group>
+	                	<group>
+	                  		<field name="travel_partner_id" domain="[('customer', '=', True)]"/>
+	                  		<field name="agency_currency_id"/>
+	                  		<field name="currency_rate"/>
+	                  	</group>
+	                  	<group>
+	                  		<field name="user_limit" groups="base.group_erp_manager,base.group_agency_admin"/>
+	                  		<field name="credit_limit" groups="base.group_erp_manager,base.group_agency_admin"/>
+	                  		
+	                  	</group>
+	                  	
+	                  	</group>
+	                  	<notebook colspan="4">
+                        	<page string="Agency Users">
+	                  			<field name="login_ids" colspan="4" nolabel="1"/>
+	                  		</page>
+	                  		
+	                  		<page string="Agency Commissions" groups="base.group_agency_admin">
+	                  		<group>
+	                  			<group>
+	                  				<field name="agency_commission_tourico" groups="base.group_agency_admin"/>
+	                  				<field name="commission_tourico_type" groups="base.group_agency_admin"/>
+	                  			</group>
+	                  		</group>
+	                  		</page>
+	                  	</notebook>
+                        		
+	                </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="agency_data_view_tree" model="ir.ui.view">
+            <field name="name">agency_data.view.tree</field>
+            <field name="model">agency.data</field>
+            <field name="arch" type="xml">
+                <tree string="Agency Data">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="agency_data_view_search" model="ir.ui.view">
+            <field name="name">agency_data.view.search</field>
+            <field name="model">agency.data</field>
+            <field name="arch" type="xml">
+                <search string="Agency Data">
+                    <field name="name"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_agency_data" model="ir.actions.act_window">
+            <field name="name">Agency Data</field>
+            <field name="res_model">agency.data</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="agency_data_view_search"/>
+        </record>
+
+        <menuitem action="action_agency_data" id="menu_agency_data" 
+        		parent="menu_configuration" name="Agency Data" 
+        		sequence="130" groups="base.group_hotel_booking_manager,base.group_agency_admin"/>
+        		
+        <record id="agency_helpdesk_view_form" model="ir.ui.view">
+            <field name="name">agency_helpdesk.view.form</field>
+            <field name="model">agency.helpdesk</field>
+            <field name="arch" type="xml">
+                <form string="Agency Helpdesk">
+                	<header>
+                		<button name="do_submit" type="object" states="draft" string="Submit"/>
+                		<button name="do_close" type="object" states="confirm" string="Close" groups="base.group_agency_admin"/>                		
+                		<button name="do_cancel" type="object" states="draft" string="Cancel"/>
+                		<field name="state" widget="statusbar" statusbar_visible="draft,confirm,done,cancel" 
+                   		     statusbar_colors='{"confirm":"blue","cancel":"red"}'/>
+                	</header>
+                	<sheet>
+                		<group>
+	                	<group>
+	                  		<field name="name"/>
+	                  		<field name="ticket_no" readonly="True"/>
+	                  		<field name="agency_id"/>
+	                  		<field name="category_id" widget="selection"/>
+	                  	</group>
+	                  	<group>
+	                  		<field name="user_id"/>
+	                  		<field name="date" readonly="True"/>
+	                  		<field name="description"/>
+	                  		<field name="comments" readonly="True"/>
+	                  	</group>
+	                  	</group>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="agency_helpdesk_view_tree" model="ir.ui.view">
+            <field name="name">agency_helpdesk.view.tree</field>
+            <field name="model">agency.helpdesk</field>
+            <field name="arch" type="xml">
+                <tree string="Agency Helpdesk">
+                    <field name="name"/>
+                    <field name="ticket_no"/>
+                    <field name="date"/>
+                    <field name="agency_id"/>
+                  	<field name="user_id"/>
+                  	<field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="agency_helpdesk_view_search" model="ir.ui.view">
+            <field name="name">agency_helpdesk.view.search</field>
+            <field name="model">agency.helpdesk</field>
+            <field name="arch" type="xml">
+                <search string="Agency helpdesk">
+                    <field name="name"/>
+                    <field name="agency_id"/>
+                  	<field name="user_id"/>
+               </search>
+            </field>
+        </record>
+        
+        <record id="action_agency_helpdesk" model="ir.actions.act_window">
+            <field name="name">Agency Helpdesk</field>
+            <field name="res_model">agency.helpdesk</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="agency_helpdesk_view_search"/>
+        </record>
+        
+        <menuitem id="menu_helpdesk" parent="menu_root_hotels" name="Helpdesk" sequence="15"/>
+        <menuitem action="action_agency_helpdesk" id="menu_agency_helpdesk" 
+        		parent="menu_helpdesk" name="Agency Helpdesk" 
+        		sequence="10"/>
+        		
+        <record id="agency_helpdesk_view_form_inherit" model="ir.ui.view">
+	        <field name="name">agency.helpdesk.view.form.inherit</field>
+	        <field name="model">agency.helpdesk</field>
+	        <field name="inherit_id" ref="agency_helpdesk_view_form"/>
+	        <field name="groups_id" eval="[(4,ref('base.group_agency_admin'))]"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='comments']" position="attributes">
+                   <attribute name="readonly">False</attribute>                   
+                </xpath>    
+        	</field>
+    	</record>
+    	
+    	<record id="helpdesk_category_view_form" model="ir.ui.view">
+            <field name="name">helpdesk.category.view.form</field>
+            <field name="model">helpdesk.category</field>
+            <field name="arch" type="xml">
+                <form string="Helpdesk Category">
+	                	<group>
+	                  		<field name="name"/>
+	                  	</group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="helpdesk_category_view_tree" model="ir.ui.view">
+            <field name="name">helpdesk.category.view.tree</field>
+            <field name="model">helpdesk.category</field>
+            <field name="arch" type="xml">
+                <tree string="Helpdesk Category">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_helpdesk_category" model="ir.actions.act_window">
+            <field name="name">Helpdesk Category</field>
+            <field name="res_model">helpdesk.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_helpdesk_category" id="menu_helpdesk_category" 
+        		parent="menu_configuration" name="Helpdesk Category" 
+        		sequence="40" groups="base.group_agency_admin"/>
+        		
+        <record id="education_submission_view_form" model="ir.ui.view">
+            <field name="name">education.submission.view.form</field>
+            <field name="model">education.submission</field>
+            <field name="arch" type="xml">
+                <form string="Education Submission">
+                	<header>
+                		<button name="do_submit" type="object" states="draft" string="Submit"/>
+                		<button name="do_close" type="object" states="confirm" string="Close" groups="base.group_agency_admin"/>                		<button name="do_cancel" type="object" states="draft" string="Cancel"/>
+                		<field name="state" widget="statusbar" statusbar_visible="draft,confirm,done,cancel" 
+                   		     statusbar_colors='{"confirm":"blue","cancel":"red"}'/>
+                	</header>
+                	<sheet>
+                		<group>
+	                	<group>
+	                  		<field name="name"/>
+	                  		<field name="dob"/>
+	                  		<field name="agency_id"/>
+	                  		<field name="user_id"/>
+	                  		<field name="date" readonly="True"/>
+	                  	</group>
+	                  	<group>
+	                  	<field name="phone"/>
+	                  		<field name="cpr_no"/>
+	                  		<field name="country"/>
+	                  		<field name="qualifcn"/>
+	                  		<field name="experience"/>
+	                  	</group>
+	                  	<group colspan="4">
+	                  		<field name="course_details"/>
+	                  	</group>
+	                  	</group>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="education_submission_view_tree" model="ir.ui.view">
+            <field name="name">education.submission.view.tree</field>
+            <field name="model">education.submission</field>
+            <field name="arch" type="xml">
+                <tree string="Education Submission">
+                    <field name="name"/>
+                    <field name="agency_id"/>
+                    <field name="user_id"/>
+                  	<field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_education_submission" model="ir.actions.act_window">
+            <field name="name">Education Submission</field>
+            <field name="res_model">education.submission</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem id="menu_education" parent="menu_root_hotels" name="Education" sequence="16"/>
+        <menuitem action="action_education_submission" id="menu_education_submission" 
+        		parent="menu_education" name="Education Submission" 
+        		sequence="10"/>	
+        		
+        <record id="medical_submission_view_form" model="ir.ui.view">
+            <field name="name">medical.submission.view.form</field>
+            <field name="model">medical.submission</field>
+            <field name="arch" type="xml">
+                <form string="Medical Submission">
+                	<header>
+                		<button name="do_submit" type="object" states="draft" string="Submit"/>
+                		<button name="do_close" type="object" states="confirm" string="Close" groups="base.group_agency_admin"/>                		<button name="do_cancel" type="object" states="draft" string="Cancel"/>
+                		<field name="state" widget="statusbar" statusbar_visible="draft,confirm,done,cancel" 
+                   		     statusbar_colors='{"confirm":"blue","cancel":"red"}'/>
+                	</header>
+                	<sheet>
+                		<group>
+	                	<group>
+	                  		<field name="name"/>
+	                  		<field name="dob"/>
+	                  		<field name="agency_id"/>
+	                  		<field name="user_id"/>
+	                  		<field name="date" readonly="True"/>
+	                  	</group>
+	                  	<group>
+	                  		<field name="phone"/>
+	                  		<field name="cpr_no"/>
+	                  		<field name="country"/>
+	                  	</group>
+	                  	<group colspan="4">
+	                  		<field name="medical_details"/>
+	                  	</group>
+	                  	</group>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="medical_submission_view_tree" model="ir.ui.view">
+            <field name="name">medical.submission.view.tree</field>
+            <field name="model">medical.submission</field>
+            <field name="arch" type="xml">
+                <tree string="Medical Submission">
+                    <field name="name"/>
+                    <field name="agency_id"/>
+                    <field name="user_id"/>
+                  	<field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_medical_submission" model="ir.actions.act_window">
+            <field name="name">Medical Submission</field>
+            <field name="res_model">medical.submission</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem id="menu_medical" parent="menu_root_hotels" name="Medical" sequence="17"/>
+        <menuitem action="action_medical_submission" id="menu_medical_submission" 
+        		parent="menu_medical" name="Medical Submission" 
+        		sequence="10"/>		
+        
+    </data>
+</openerp>

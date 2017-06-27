@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="book_hotels_view_form" model="ir.ui.view">
+            <field name="name">book_hotels.view.form</field>
+            <field name="model">book.hotels</field>
+            <field name="arch" type="xml">
+                <form string="Book Hotels">
+                    <group col="4">
+                        <field colspan="4" name="destination_id"  domain="[('tourico_code','!=',False)]"/>
+                        <field colspan="4" name="booking_type" invisible="1"/>
+                        <field colspan="4" name="customer_id"/>
+                        <field colspan="2" name="check_in"/>
+                        <field colspan="2" name="check_out"/>
+                        <field colspan="2" name="date_flexible" invisible="1"/>
+                        <field colspan="2" name="flexible_days" invisible="1"/>
+                        <field colspan="2" name="rooms"/>
+                        <separator string="Room Occupancy" colspan="4"/>
+                        <field colspan="4" name="room_occupancy_ids" nolabel="1">
+                        	<tree editable="bottom">
+                        		<field name="adults"/>
+                        		<field name="child"/>
+                        		<field name="child_age" placeholder="Please enter the childern's age in comma spearated format. Example: 2,4"/>
+                        	</tree>
+                        </field>
+                        <button name="search_hotel_details" type="object" string="Search Hotels"/>
+                        <separator string="Hotels" colspan="4"/>
+                        <field colspan="4" name="hotel_searchresult_ids" nolabel="1">
+                        	<tree>
+                        	    <field name="image" widget="image" height="110" resize="150,110"/>
+                        		<field name="name"/>
+                        		<field name="location"/>
+                        		<field name="rate" string="Lowest Rate"/>
+                        		<field name="api_type"/>
+                        	</tree>
+                        	<form string="Hotel">
+                        	    <div class="oe_left" style="width: 500px;">
+	                       			 <field name="image" nolabel="1"  widget="image" class="oe_avatar oe_left"/>
+	                       			 <div class="oe_title" style="width: 390px;">
+		                                <label class="oe_edit_only" for="name" string="Hotel Name"/>
+		                                <h1><field name="name" readonly="1" class="oe_inline"/></h1>
+		                            </div>
+			                    </div>
+	                        	<group col="4">
+	                        		<field colspan="4" name="turico_hotelId" readonly="1" string="Hotel ID"/>
+			                        <field colspan="4" name="location" readonly="1"/>
+			                        <group col="6" colspan="4">
+				                        <field colspan="2" name="rooms" readonly="1"/>
+				                        <field colspan="2" name="adults" readonly="1"/>
+				                        <field colspan="2" name="children" readonly="1"/>
+				                    </group>
+				                    <field colspan="4" name="total_amount"/>
+				                    <field colspan="4" name="booked" invisible="1"/>
+				                    <button name="book_room" type="object" 
+				                           string="Book" attrs="{'invisible':[('booked','=', True)]}"/>
+				                    <separator string="Booking is confirmed" colspan="4"
+				                           attrs="{'invisible':[('booked','=', False)]}"/>
+			                        <separator string="Rates" colspan="4"/>
+			                        <field colspan="4" name="room_rates_ids" nolabel="1">
+			                        	<tree editable="bottom" colors="blue:room_selection != False; 
+			                        				black:default_date == True; gray:default_date == False">
+			                        		<field name="name" readonly="1"/>
+			                        		<field name="turico_roomId" invisible="1"/>
+			                        		<field name="turico_hotelRoomTypeId" invisible="1"/>
+			                        		<field name="checkIn" invisible="1"/>
+			                        		<field name="checkOut" invisible="1"/>
+			                        		<field name="adults" readonly="1"/>
+			                        		<field name="children" readonly="1"/>
+			                        		<field name="base_rate" invisible="1"/>
+			                        		<field name="room_selection" invisible="1"/>
+			                        		<field name="booking_id" invisible="1"/>
+			                        		<field name="supplement_ids" widget="many2many_tags" 
+			                        		      domain="[('rate_id','=', id)]"/>
+			                        		<field name="boardbase_ids" widget="many2many_tags" 
+			                        		      domain="[('rate_id','=', id)]"/>
+			                        		<field name="rate" readonly="1"/>
+			                        		<field name="currency" readonly="1"/>
+			                        		<field name="occupancy_ids" widget="many2many_tags" 
+			                        		      domain="[('booking_id','=', booking_id)]"/>
+			                        		<field name="default_date" invisible="1"/>
+			                        	</tree>
+			                        </field>
+	                        	</group>
+                        	</form>
+                        </field>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+         <record id="book_hotels_view_tree" model="ir.ui.view">
+            <field name="name">book_hotels.view.tree</field>
+            <field name="model">book.hotels</field>
+            <field name="arch" type="xml">
+                <tree string="Book Hotels">
+                    <field colspan="4" name="destination_id"/>
+                    <field colspan="4" name="booking_type"/>
+                    <field colspan="2" name="check_in"/>
+                    <field colspan="2" name="check_out"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="book_hotels_view_search" model="ir.ui.view">
+            <field name="name">book_hotels.view.search</field>
+            <field name="model">book.hotels</field>
+            <field name="arch" type="xml">
+                <search string="Book Hotels">
+                    <field colspan="4" name="destination_id"/>
+                    <field colspan="4" name="booking_type"/>
+                    <field colspan="2" name="check_in"/>
+                    <field colspan="2" name="check_out"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_book_hotels" model="ir.actions.act_window">
+            <field name="name">Book Hotels</field>
+            <field name="res_model">book.hotels</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="search_view_id" ref="book_hotels_view_search"/>
+        </record>
+
+        
+        <menuitem action="action_book_hotels" id="menu_book_hotels" 
+        		parent="menu_main_hotels" name="Book Hotels" 
+        		sequence="10" groups="base.group_erp_manager"/>
+        		
+        		
+       <record id="confirm_booking_view_form" model="ir.ui.view">
+            <field name="name">confirm_booking.view.form</field>
+            <field name="model">confirm.booking</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Booking">
+                    <group col="4">
+                        <separator string="Cutsomer Deatils" colspan="4"/>
+                        <field colspan="2" name="customer_first_name"/>
+                        <field colspan="2" name="customer_last_name"/>
+                        <field colspan="2" name="customer_home_phone"/>
+                        <field colspan="2" name="customer_mobile_phone"/>
+                        <separator string="Cancellation Policies" colspan="4"/>
+                        <field colspan="4" name="cancellation_policies" nolabel="1" readonly="1"/>
+                        <separator string="Hotel Policies" colspan="4"/>
+                        <field colspan="4" name="rateComments" nolabel="1" readonly="1"/>
+                        <separator string="Comments" colspan="4"/>
+                        <field colspan="4" name="comments" nolabel="1"/>
+                        <button name="confirm_booking" type="object" string="Confirm Booking"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_confirm_booking" model="ir.actions.act_window">
+            <field name="name">Confirm Booking</field>
+            <field name="res_model">confirm.booking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+    </data>
+</openerp>

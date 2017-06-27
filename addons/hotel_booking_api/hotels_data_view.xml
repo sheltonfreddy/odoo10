@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hotel_data_view_form" model="ir.ui.view">
+            <field name="name">hotel_data.view.form</field>
+            <field name="model">hotel.data</field>
+            <field name="arch" type="xml">
+                <form string="Hotel Data">
+                <header>
+                	<button name="get_hotel_details" type="object" string="Import Hotel Data"/>
+                </header>
+                	<sheet>
+                       <group>
+                    		<group>
+	                        	<field name="name"/>
+	                        	<field name="giataId"/>
+	                        	<field name="turico_hotelId"/>
+	                        	<field name="hotelbeds_code"/>
+	                        </group>
+	                        <group>
+	                        	<field name="destn_code"/>
+	                        	<field name="destn_name"/>
+	                        	<field name="tourico_destn_id"/>
+	                        	<field name="chainId"/>
+	                        	<field name="chainName"/>
+	                        </group>
+	                        <group colspan="4">
+	                        	<field name="description"/>
+	                        	
+	                    	</group>
+	                    	<group colspan="4">
+	                        	<field name="checkin"/>
+	                        	<field name="checkout"/>
+	                    	</group>
+	                    <notebook>
+	                    
+	                    	<page string="General Information">
+				                    <group>
+		                        	    <field name="addressLine1"/>
+		                        		<field name="addressLine2"/>
+		                        		<field name="addressLine3"/>
+		                        		<field name="addressLine4"/>
+		                        		<field name="street"/>
+		                        		<field name="cityName"/>
+		                        		<field name="zipcode"/>
+		                        		<field name="country"/>
+		                        		<field name="country_code"/>
+				                    </group>
+				                    <group>
+		                        	    <field name="phone"/>
+		                        		<field name="fax"/>
+		                        		<field name="email"/>
+		                        		<field name="url"/>
+		                        		<field name="latitude"/>
+		                        		<field name="longitude"/>
+				                    </group>
+		                    </page>
+		                    <page string="Hotel Rooms">
+			                        <field name="room_ids" nolabel="1">
+			                        	<tree editable="bottom">
+			                        	    <field name="name"/>
+			                        		<field name="code"/>
+			                        		<field name="facility_ids" widget="many2many_tags">
+			                        			<tree>
+			                        				<field name="name"/>
+			                        				<field name="paid"/>
+			                        			</tree>
+			                        		</field>
+		                        		</tree>
+			                        </field>
+		                    </page>
+	                    	<page string="Hotel Facilities">
+			                        <field name="facility_ids" nolabel="1">
+			                        	<tree>
+			                        	    <field name="name"/>
+			                        		<field name="paid"/>
+			                        		<field name="amount"/>
+		                        		</tree>
+			                        </field>
+		                    </page>
+	                    	<page string="Property Codes">
+			                        <field name="propertycodes_ids" nolabel="1">
+			                        	<tree>
+			                        	    <field name="providerCode"/>
+			                        		<field name="providerType"/>
+			                        		<field name="value"/>
+			                        		<field name="country_code"/>
+			                        		<field name="city_code"/>
+			                        		<field name="hotel_code"/>
+		                        		</tree>
+			                        </field>
+		                    </page>
+		                    
+		                    <page string="Images">
+			                        <field name="images" nolabel="1">
+			                        	<tree>
+			                        	    <field name="image" widget="image" height="110" resize="150,110"/>
+			                        		<field name="code"/>
+			                        		<field name="type"/>
+			                        		<field name="last_used"/>
+			                        		<field name="url"/>
+		                        		</tree>
+			                        </field>
+			                        <separator string="Tourico Images"/>
+			                        <field name="tourico_image_ids" nolabel="1">
+			                        	<tree>
+			                        		<field name="name"/>
+			                        		<field name="type"/>
+		                        		</tree>
+			                        </field>
+		                    </page>
+	                    </notebook>
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="hotel_data_view_tree" model="ir.ui.view">
+            <field name="name">hotel_data.view.tree</field>
+            <field name="model">hotel.data</field>
+            <field name="arch" type="xml">
+                <tree string="Hotel Data">
+                    <field name="name"/>
+                    <field name="giataId"/>
+                    <field name="turico_hotelId"/>
+                    <field name="hotelbeds_code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hotel_data_view_search" model="ir.ui.view">
+            <field name="name">hotel_data.view.search</field>
+            <field name="model">hotel.data</field>
+            <field name="arch" type="xml">
+                <search string="Hotel Data">
+                    <field name="name"/>
+                    <field name="giataId"/>
+                    <field name="turico_hotelId"/>
+                    <field name="hotelbeds_code"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_hotel_data" model="ir.actions.act_window">
+            <field name="name">Hotel Data</field>
+            <field name="res_model">hotel.data</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hotel_data_view_search"/>
+        </record>
+
+        <menuitem action="action_hotel_data" id="menu_hotel_data" 
+        		parent="menu_configuration" name="Hotel Data" 
+        		sequence="11" groups="base.group_erp_manager"/>
+        		
+        		
+       <record id="hotel_facilities_view_form" model="ir.ui.view">
+            <field name="name">hotel.facilitie.view.form</field>
+            <field name="model">all.hotel.facilities</field>
+            <field name="arch" type="xml">
+                <form string="Hotel Facilities">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="groupcode"/>
+                    <field name="typologycode"/>
+                </form>
+            </field>
+        </record>
+       		
+       <record id="hotel_facilities_view_tree" model="ir.ui.view">
+            <field name="name">hotel.facilities.view.tree</field>
+            <field name="model">all.hotel.facilities</field>
+            <field name="arch" type="xml">
+                <tree string="Hotel Facilities">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="groupcode"/>
+                    <field name="typologycode"/>
+                </tree>
+            </field>
+        </record>
+        		
+        <record id="hotel_facility_view_search" model="ir.ui.view">
+            <field name="name">facilities.view.search</field>
+            <field name="model">all.hotel.facilities</field>
+            <field name="arch" type="xml">
+                <search string="Hotel Facilities">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="groupcode"/>
+                    <field name="typologycode"/>
+               </search>
+            </field>
+        </record>
+        
+        <record id="action_hotel_all_facilities" model="ir.actions.act_window">
+            <field name="name">Hotel Facilities</field>
+            <field name="res_model">all.hotel.facilities</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hotel_facility_view_search"/>
+        </record>
+        
+        <menuitem action="action_hotel_all_facilities" id="menu_hotel_all_facilities" 
+        		parent="menu_configuration" name="Hotel Facilities" 
+        		sequence="12" groups="base.group_erp_manager"/>		
+        
+    </data>
+</openerp>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="booked_activities_view_form" model="ir.ui.view">
+            <field name="name">booked_activities.view.form</field>
+            <field name="model">booked.activities</field>
+            <field name="arch" type="xml">
+                <form string="Booked Activities">
+                   <header>
+                   		<button name="action_view_invoice" type="object" string="View Invoice"
+                   		       states="confirmed"/>
+                   		<button name="create_invoice" type="object" string="Invoice"
+                   		     states="Confirm"/>
+                   		<button name="action_cancel_booking" type="object" string="Cancel Booking"
+                   		     states="Confirm"/>
+                   		<field name="state" widget="statusbar" statusbar_visible="draft,confirmed,cancel" 
+                   		     statusbar_colors='{"confirmed":"blue","cancel":"red"}'/>
+                   </header>
+                   <sheet string="Booked Hotels">
+                   <h1>
+                        <label string="Booking Number"/>
+                        <field name="reservationId" class="oe_inline" readonly="1"/>
+                    </h1>
+                    <group col="4">
+                    	<field colspan="4" name="name"/>
+                        <field colspan="4" name="customer_id"/>
+                        <field colspan="4" name="tranNumber"/>
+                        <field colspan="4" name="currency"/>
+                        <field colspan="4" name="total"/>
+                        <field colspan="4" name="booking_date"/>
+                        <field colspan="4" name="booked_on"/>
+                        <field colspan="2" name="cancellation_fee" states="cancel"/>
+                        <field name="cancellation_fee_currency" nolabel="1" states="cancel"/>
+                    </group>
+                     <separator string="Passengers" colspan="4"/>
+                        <field colspan="4" name="passenger_ids" nolabel="1">
+                        	<tree editable="bottom">
+                        		<field name="name"/>
+                        		<field name="type"/>
+                        	</tree>
+                        </field>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="booked_activities_view_tree" model="ir.ui.view">
+            <field name="name">booked_activities.view.tree</field>
+            <field name="model">booked.activities</field>
+            <field name="arch" type="xml">
+                <tree string="Booked Activities">
+                	<field name="reservationId"/>
+                    <field colspan="4" name="customer_id"/>
+                    <field colspan="4" name="tranNumber"/>
+                    <field colspan="4" name="currency"/>
+                    <field colspan="4" name="total"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="booked_activities_view_search" model="ir.ui.view">
+            <field name="name">booked_activities.view.search</field>
+            <field name="model">booked.activities</field>
+            <field name="arch" type="xml">
+                <search string="Booked Activities">
+                    <field name="reservationId"/>
+                    <field name="customer_id"/>
+                    <field name="tranNumber"/>
+                    <field name="currency"/>
+                    <field name="total"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_booked_activities" model="ir.actions.act_window">
+            <field name="name">Booked Activities</field>
+            <field name="res_model">booked.activities</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="booked_activities_view_search"/>
+        </record>
+        
+        
+        <menuitem action="action_booked_activities" id="menu_booked_activities_new" 
+        		parent="menu_main_hotels" name="Booked Activities" 
+        		sequence="40"/>
+        		
+    </data>
+</openerp>

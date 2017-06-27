@@ -1,0 +1,3 @@
+import import_locations
+import cancellation_fee
+import import_tourico

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+        <record id="search_flights_view_form" model="ir.ui.view">
+            <field name="name">search.flights.view.form</field>
+            <field name="model">flight.search</field>
+            <field name="arch" type="xml">
+                <form string="Search Flights">
+                    <group col="4">
+                        <field colspan="4" name="origin_id"/>
+                        <field colspan="4" name="destination_id"/>
+                        <field colspan="2" name="depart_date"/>
+                        <field colspan="2" name="return_date"/>
+                        <button name="search_flights" type="object" string="Search Flights"/>
+                        <field colspan="4" name="itinerary_ids" nolabel="1">
+                        	<tree>
+                        	    <field name="departure_airport"/>
+                        	    <field name="departure_date"/>
+                        	    <field name="from_flight"/>
+                        	    <field name="to_airline"/>
+                        		<field name="arrival_airport"/>
+                        		<field name="arrival_date"/>
+                        		<field name="to_flight"/>
+                        		<field name="return_airline"/>
+                        		<field name="total_fare"/>
+                        	</tree>
+                        </field>
+					</group>
+				</form>
+			</field>
+		</record>
+		
+		<record id="search_flights_view_search" model="ir.ui.view">
+            <field name="name">search.flights.view.search</field>
+            <field name="model">flight.search</field>
+            <field name="arch" type="xml">
+                <search string="Search Flights">
+                    <field colspan="4" name="destination_id"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_search_flights" model="ir.actions.act_window">
+            <field name="name">Search Flights</field>
+            <field name="res_model">flight.search</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="search_view_id" ref="search_flights_view_search"/>
+        </record> 
+        
+        <menuitem id="menu_flight" 
+        		parent="menu_root_hotels" name="Flights" 
+        		sequence="3"/> 
+        		
+        <menuitem action="action_search_flights" id="menu_search_flight" 
+        		parent="menu_flight" name="Search Flights" 
+        		sequence="10" groups="base.group_erp_manager"/>                       
+    
+
+        <record id="airlines_view_form" model="ir.ui.view">
+            <field name="name">airlines.view.form</field>
+            <field name="model">air.lines</field>
+            <field name="arch" type="xml">
+                <form string="AirLines">
+                    <group col="4">
+                    	<group col="2" colspan="2">
+	                        <field name="name"/>
+	                        <field name="sabre_code"/>
+	                        <field name="business_name"/>
+	                    </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+         <record id="airlines_view_tree" model="ir.ui.view">
+            <field name="name">airlines.view.tree</field>
+            <field name="model">air.lines</field>
+            <field name="arch" type="xml">
+                <tree string="AirLines">
+                    <field name="name"/>
+                    <field name="sabre_code"/>
+                    <field name="business_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="airlines_view_search" model="ir.ui.view">
+            <field name="name">airlines.view.search</field>
+            <field name="model">air.lines</field>
+            <field name="arch" type="xml">
+                <search string="AirLines">
+                    <field name="name"/>
+                    <field name="sabre_code"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_airlines" model="ir.actions.act_window">
+            <field name="name">AirLines</field>
+            <field name="res_model">air.lines</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="airlines_view_search"/>
+        </record>
+
+        <menuitem action="action_airlines" id="menu_airlines" 
+        		parent="menu_configuration" name="AirLines" 
+        		sequence="40" groups="base.group_erp_manager"/>
+        		
+        <record id="airportcities_view_form" model="ir.ui.view">
+            <field name="name">airportcities.view.form</field>
+            <field name="model">airport.cities</field>
+            <field name="arch" type="xml">
+                <form string="Cities">
+                    <group col="4">
+                    	<group col="2" colspan="2">
+	                        <field name="name"/>
+	                        <field name="sabre_code"/>
+	                        <field name="country_code"/>
+	                        <field name="country_name"/>
+	                        <field name="region_name"/>
+	                    </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+         <record id="airportcities_view_tree" model="ir.ui.view">
+            <field name="name">airportcities.view.tree</field>
+            <field name="model">airport.cities</field>
+            <field name="arch" type="xml">
+                <tree string="Cities">
+                    <field name="name"/>
+                    <field name="sabre_code"/>
+                    <field name="country_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="airportcities_view_search" model="ir.ui.view">
+            <field name="name">airportcities.view.search</field>
+            <field name="model">airport.cities</field>
+            <field name="arch" type="xml">
+                <search string="Cities">
+                    <field name="name"/>
+                    <field name="sabre_code"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_airportcities" model="ir.actions.act_window">
+            <field name="name">Cities</field>
+            <field name="res_model">airport.cities</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="airportcities_view_search"/>
+        </record>
+
+        <menuitem action="action_airportcities" id="menu_airportcities" 
+        		parent="menu_configuration" name="Cities" 
+        		sequence="45" groups="base.group_erp_manager"/>
+        		
+     
+        <record id="airlineorigindest_view_form" model="ir.ui.view">
+            <field name="name">airlineorigindest.view.form</field>
+            <field name="model">airline.origin.destination</field>
+            <field name="arch" type="xml">
+                <form string="City Pairs">
+                    <group col="4">
+                    	<group col="2" colspan="2">
+	                        <field name="name"/>
+	                        <field name="origin"/>
+	                        <field name="origin_airport"/>
+	                        <field name="origin_city"/>
+	                        <field name="origin_country"/>
+	                        <field name="origin_countrycode"/>
+	                        <field name="origin_region"/>
+	                    </group>
+	                    <group col="2" colspan="2">
+	                    	<field name="destination"/>
+	                    	<field name="destination_airport"/>
+	                    	<field name="destination_city"/>
+	                    	<field name="destination_country"/>
+	                    	<field name="destination_countrycode"/>
+	                    	<field name="destination_region"/>
+	                    </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+         <record id="airlineorigindest_view_tree" model="ir.ui.view">
+            <field name="name">airlineorigindest.view.tree</field>
+            <field name="model">airline.origin.destination</field>
+            <field name="arch" type="xml">
+                <tree string="City Pairs">
+                    <field name="name"/>
+                    <field name="origin"/>
+                    <field name="destination"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="airlineorigindest_view_search" model="ir.ui.view">
+            <field name="name">airlineorigindest.view.search</field>
+            <field name="model">airline.origin.destination</field>
+            <field name="arch" type="xml">
+                <search string="City Pairs">
+                    <field name="name"/>
+                    <field name="origin"/>
+                    <field name="destination"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_airlineorigindest" model="ir.actions.act_window">
+            <field name="name">City Pairs</field>
+            <field name="res_model">airline.origin.destination</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="airlineorigindest_view_search"/>
+        </record>
+
+        <menuitem action="action_airlineorigindest" id="menu_airlineorigindest" 
+        		parent="menu_configuration" name="Airline City Pairs" 
+        		sequence="50" groups="base.group_erp_manager"/>
+        
+
+    </data>
+</openerp>

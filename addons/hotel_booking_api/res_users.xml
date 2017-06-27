@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <!-- Update user form !-->
+        <record id="view_users_form_travel" model="ir.ui.view">
+            <field name="name">res.users.form.travel</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="travel_partner_id"/>
+                    <field name="agency_id"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

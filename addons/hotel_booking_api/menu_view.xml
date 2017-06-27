@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	<menuitem id="menu_root_hotels" name="Hotels" groups="base.group_can_book_hotel,base.group_hotel_booking_manager"/>
+    	
+    	
+        <menuitem  id="menu_main_hotels" 
+        		parent="menu_root_hotels" name="Hotels" sequence="10" groups="base.group_can_book_hotel,base.group_hotel_booking_manager"/>
+        		
+        <menuitem  id="menu_configuration" 
+        		parent="menu_root_hotels" name="Configuration" sequence="20" groups="base.group_can_book_hotel,base.group_hotel_booking_manager"/>
+    
+    
+    </data>
+</openerp>

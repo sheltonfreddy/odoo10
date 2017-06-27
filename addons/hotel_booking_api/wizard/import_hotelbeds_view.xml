@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_import_hotelbeds" model="ir.ui.view">
+            <field name="name">import.hotelbeds</field>
+            <field name="model">import.hotelbeds</field>
+            <field name="arch" type="xml">
+             <form string="Import Hotelbeds Data">
+                <p class="oe_grey">
+                    Hotelbeds data import
+                </p>
+                <footer>
+                    <button name="do_update_hotelbeds_hoteldata" string="Import Destinations only" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_import_hotelbeds" model="ir.actions.act_window">
+            <field name="name">Import hotelbeds</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">import.hotelbeds</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_import_hotelbeds"/>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem action="action_import_hotelbeds" id="menu_import_hotelbeds" 
+        		parent="menu_configuration" name="Import Hotelbeds" 
+        		sequence="26" groups="base.group_erp_manager"/>
+        
+        
+        
+    </data>
+</openerp>

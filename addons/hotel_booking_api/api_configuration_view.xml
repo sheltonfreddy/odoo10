@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hotelapi_configuration_view_form" model="ir.ui.view">
+            <field name="name">hotelapi.configuration.view.form</field>
+            <field name="model">hotelapi.configuration</field>
+            <field name="arch" type="xml">
+                <form string="API Configuration">
+                    <group col="4">
+                        <field colspan="4" name="name"/>
+                        <field colspan="4" name="type"/>
+                        <field colspan="4" name="is_test"/>
+                        <field colspan="4" name="url"/>
+                        <field colspan="4" name="key"/>
+                        <field colspan="4" name="secret"/>
+                        <field colspan="4" name="username"/>
+                        <field colspan="4" name="password"/>
+                        <field colspan="4" name="update_date"/>  
+                        <field colspan="4" name="hotel_update_date"/>
+                        <field colspan="4" name="act_update_date"/>
+                        <button name="test_get_hotel_details" type="object" string="Hotel Details"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+         <record id="hotelapi_configuration_view_tree" model="ir.ui.view">
+            <field name="name">hotelapi.configuration.view.tree</field>
+            <field name="model">hotelapi.configuration</field>
+            <field name="arch" type="xml">
+                <tree string="API Configuration">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="is_test"/>
+                    <field name="url"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hotelapi_configuration_view_search" model="ir.ui.view">
+            <field name="name">hotelapi.configuration.view.search</field>
+            <field name="model">hotelapi.configuration</field>
+            <field name="arch" type="xml">
+                <search string="API Configuration">
+                    <field name="name" string="Name"/>
+                    <field name="url"/>
+                    <field name="type"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_hotelapi_configuration" model="ir.actions.act_window">
+            <field name="name">Hotel API Configuration</field>
+            <field name="res_model">hotelapi.configuration</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hotelapi_configuration_view_search"/>
+        </record>
+
+        <!-- <menuitem id="menu_hotelapi"  sequence="6" name="Hotel API"
+        	parent="base.menu_administration"/> -->
+        <menuitem action="action_hotelapi_configuration" id="menu_hotelapi_configuration" 
+        		parent="menu_configuration" name="API Configuration" 
+        		sequence="100" groups="base.group_erp_manager"/>
+
+    </data>
+</openerp>

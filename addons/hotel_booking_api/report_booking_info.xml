@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="spire_external_layout">
+		    <!-- Multicompany -->
+		    <t t-if="not o and doc">
+		        <t t-set="o" t-value="doc"/>
+		    </t>
+		    <t t-if="o and 'company_id' in o">
+		        <t t-set="company" t-value="o.company_id"></t>
+		    </t>
+		     <t t-if="o and 'customer_id' in o">
+		        <t t-set="customer" t-value="o.customer_id"></t>
+		    </t>
+		    <t t-if="not o or not 'company_id' in o">
+		        <t t-set="company" t-value="res_company"></t>
+		    </t>
+			<t t-if="not o or not 'customer_id' in o">
+		        <t t-set="customer" t-value="res_partner"></t>
+		    </t>
+		    <t t-call="hotel_booking_api.spire_external_layout_header" />
+		    <t t-raw="0" />
+		    <t t-call="report.external_layout_footer" />
+		</template>
+		
+		<template id="spire_external_layout_header">
+		    <div class="header">
+		        <div class="row">
+		            <div class="col-xs-3">
+		                <img t-if="user.agency_id and user.agency_id.agency_logo" t-att-src="'data:image/png;base64,%s' % user.agency_id.agency_logo" style="max-height: 45px;"/>
+		            </div>
+		            <div class="col-xs-9 text-right" style="margin-top:20px;" t-field="company.rml_header1"/>
+		        </div>
+		        <div class="row zero_min_height">
+		            <div class="col-xs-12">
+		                <div style="border-bottom: 1px solid black;"></div>
+		            </div>
+		        </div>
+		        <div class="row">
+		            <div class="col-xs-6" name="company_address">
+		                <span t-field="company.partner_id"
+		                    t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+		                    style="border-bottom: 1px solid black; display:inline-block;"/>
+		            </div>
+		        </div>
+		    </div>
+		</template>
+	
+		<template id="report_booking_info">
+ 			<t t-call="report.html_container">
+	            <!-- t-call="hotel_booking_api.spire_external_layout"-->
+	            	<t t-foreach="docs" t-as="o">
+	            		<div class="header">
+					        <div class="row">
+					            <div class="col-xs-3">
+					                <img t-if="o.booked_user_id.agency_id and o.booked_user_id.agency_id.agency_logo" t-att-src="'data:image/png;base64,%s' % o.booked_user_id.agency_id.agency_logo" style="max-height: 60px;"/>
+					            </div>
+					        </div>
+					        <div class="row zero_min_height">
+					            <div class="col-xs-12">
+					            <br></br>
+					                <div style="border-bottom: 1px solid black;"></div>
+					            </div>
+					        </div>
+					        <div class="row">
+					            <div class="col-xs-6" name="company_address">
+					                <span t-field="o.customer_id"
+					                    t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+					                    style="border-bottom: 1px solid black; display:inline-block;"/>
+					            </div>
+					        </div>
+					    </div>
+	            		<!-- div class="header">
+	            			<div class="row">
+            					This Is Header1
+            				</div>
+  						</div-->
+	            		<t t-if="o.booking_type == 'tourico_hotels'">
+	            		<!-- div class="header">
+            				<div class="row">
+            					This Is Header2
+            				</div>
+  						</div-->
+	            		<div class="page">
+	            			<div class="row">
+	            			    <center>
+	            			 		<h4> BOOKING INFORMATION</h4>
+	            			 	</center>
+	            			 	<div class="col-xs-6">
+	            			 		<span><strong>Agency Voucher Number</strong></span><br></br>
+	            			 	    <span t-field="o.name"/><br></br><br></br>
+	            			 	    <span><strong>Agency Ref. No.</strong></span><br></br>
+	            			 	    <span t-field="o.reference"/><br></br><br></br>
+	            			 	    <span><strong>Supplier Ref. No.</strong></span><br></br><br></br><br></br>
+	            			 	</div>
+	            			 	<div class="col-xs-6"  style='padding-left:100px;'>
+	            			 	    <span><strong>Booking Date</strong></span><br></br>
+	            			 	    <span t-field="o.creationDate"/><br></br><br></br>
+			                   		<span><strong>Support</strong></span><br></br>
+			                   		<span>Spire Co,</span><br></br>
+									<span>P O Box 30008 Budayia -</span><br></br>
+									<span>Bahrain</span><br></br>	
+                                    <span>MANAMA,BAHRAIN</span><br></br>
+                                    <span>Tel : 17100081</span><br></br>
+			           		    </div>
+			           		    <br></br>
+	            			 </div>
+	            			 <div class="row zero_min_height">
+           						<div class="col-xs-12">
+           						    <br></br>
+                					<div style="border-bottom: 1px solid black;"></div>
+                					<br></br>
+           						</div>
+       						 </div>
+	            			 <div class="row">
+	            			    <div class="col-xs-6">
+	            					<span><strong>HOTEL DETAILS</strong></span><br></br>
+	            			    	<span t-field="o.hotel"/><br></br><br></br>
+	            			    </div>
+	            			 </div>
+	            			 <div class="row zero_min_height">
+           						<div class="col-xs-12">
+                					<div style="border-bottom: 1px solid black;"></div>
+                					<br></br>
+           						</div>
+       						 </div>
+	            			 <div class="row">
+	            				<div class="col-xs-4">
+	            					<span><strong>Check in: </strong></span>
+	            					<span t-field="o.check_in"/><br></br>
+	            				</div>
+	            				<div class="col-xs-4">
+	            					<span><strong>Check out: </strong></span>
+	            					<span t-field="o.check_out"/><br></br>
+	            				</div>
+	            				<div class="col-xs-4">
+	            					<span><strong>Number of Nights: </strong></span>
+	            					<span t-field="o.no_of_nights"/><br></br>
+	            				</div>
+	            			 </div>
+	            			 <div class="row zero_min_height">
+           						<div class="col-xs-12">
+           						    <br></br>
+                					<div style="border-bottom: 1px solid black;"></div>
+                					<br></br>
+                					<br></br>
+           						</div>
+       						 </div>
+	            			 <table class="table" border="1" style="border:1px solid black;border-collapse:collapse;">
+	            			 	<thead>
+                    				<tr>
+                        				<th class="text-center" style="border:1px solid black;">Room</th>
+                        				<th class="text-center" style="border:1px solid black;">Status</th>
+                        				<th class="text-center" style="border:1px solid black;">Passengers</th>
+                        				<!-- th class="text-center" style="border:1px solid black;">Rate</th-->
+                    				</tr>
+                    			</thead>
+                    			<tbody>
+               						<tr t-foreach="o.booked_rooms" t-as="lines">
+               						    <td style="border:1px solid black;" class="text-center">
+               						    	<span t-field="lines.name"/>
+               						    </td>
+               						    <td style="border:1px solid black;" class="text-center">
+               						    	<span t-field="lines.status"/>
+               						    </td>
+               							<td style="border:1px solid black;" class="text-center">
+											<span t-field="o.holder_name"/>  
+											<span t-field="o.holder_surname"/>     								
+               							</td>
+               							<!--td style="border:1px solid black;" class="text-center">
+               						    	<span t-field="lines.rate_currency"/>
+               						    </td-->
+                                	</tr>
+                                </tbody>
+	            			 </table>
+	            			 <!--div class="row" name="total">
+                				<div class="col-xs-4 pull-right">
+                   					 <table class="table table-condensed">
+                        				<tr class="border-black">
+                            				<td><strong>Total Amount</strong></td>
+                            				<td class="text-right">
+                                			<span t-field="o.agency_markup"/> <span t-field="o.agency_currency_id.name"/>
+                            				</td>
+                        				</tr>
+                    				</table>
+                				</div>
+            				</div-->
+            		         <div class="row zero_min_height">
+           						<div class="col-xs-12">
+           						    <br></br>
+                					<div style="border-bottom: 1px solid black;"></div>
+           						</div>
+       						 </div>
+            				   <center>
+	            			 		<h4> OTHER INFORMATION </h4><br></br>
+	            			  </center>
+	            			  <div class="row">
+	            				<div class="col-xs-4">
+	            					<span><strong>Emergency Contact No.: </strong></span><br></br>
+	            					<span>+973 36 009 247</span><br></br>
+	            				</div>
+	            				<div class="col-xs-4">
+	            					<span><strong>UK No.: </strong></span><br></br>
+	            					<span>+44 79370 84550</span><br></br>
+	            				</div>
+	            				<div class="col-xs-4">
+	            					<span><strong>US No.: </strong></span><br></br>
+	            					<span>+1 209 433 8485</span><br></br>
+	            				</div>
+	            			 </div>
+	            			  <div>
+	            			  
+	            			  <h5><strong>Check your booking details carefully and inform us immediately if you have any queries.</strong></h5><br></br>
+	       
+
+	            			  <ul>
+	            			  <h5><strong>Check In/Check Out Timings and Policies</strong> </h5>
+  									<li>The usual check-in time is 14:00 hours in majority of the hotel, however, it may be upto 16:00 hours
+depending on the individual hotel / resort discretion. Hotel/Resort may decide to have different Chk In time
+depending on the seasonality or occupancy. Rooms may not be available for early check-ins, unless
+specifically requested in advance. However, luggage may be deposited at the hotel reception and collected
+once the room is allotted.</li>
+  								    <li>Note that reservations may be cancelled automatically after 18:00 hours if hotels are not informed about
+the approximate time of late arrivals.</li>
+   									<li>Official checkout time is at 12:00 hours. Any late checkout may involve additional charges. Please check
+with the hotel reception in advance.</li>
+							 </ul> 
+							 <h5><strong>Voucher Remarks</strong></h5>
+							 <ul>
+  								<li> In case of wrong residency or nationality selected by user at the time of booking; the supplement charges
+may be applicable and need to be paid directly to the hotel by guest on check in/check out. </li>
+</ul>
+	            			  </div>
+ 						</div>
+                 	</t>
+                 	<t t-if="o.booking_type == 'hotels'">
+                 		<div class="page">
+	            			<div class="row">
+	            			    <center>
+	            			 		<h4> BOOKING INFORMATION </h4>
+	            			 	</center>
+	            			 	<div class="col-xs-6">
+	            			 		<span><strong>Booking Reference</strong></span><br></br>
+	            			 		<strong><span t-field="o.reference"/></strong><br></br><br></br>
+	            			 		<span><strong>Agency Reference</strong></span><br></br>
+	            			 		<span t-field="o.name"/><br></br>
+	            			 	    <span><strong>Supplier</strong></span><br></br>
+	            			 	    <span t-field="o.supplier_name"/><br></br>
+	            			 	    <span><strong>Supplier Vat No.</strong></span><br></br>
+	            			 	    <span t-field="o.supplier_vatNumber"/><br></br>
+	            			 	</div>
+	            			 	<div class="col-xs-6"  style='padding-left:100px;'>
+	            			 	    <span><strong>Booking Date</strong></span><br></br>
+	            			 	    <span t-field="o.creationDate"/><br></br><br></br>
+			                   		<span><strong>Support</strong></span><br></br>
+			                   		<span>Spire Co,</span><br></br>
+									<span>P O Box 30008 Budayia -</span><br></br>
+									<span>Bahrain</span><br></br>	
+                                    <span>MANAMA,BAHRAIN</span><br></br>
+                                    <span>Tel : 17100081</span><br></br>
+			           		    </div>
+			           		    <br></br>
+	            			 </div>
+	            			 <div class="row zero_min_height">
+           						<div class="col-xs-12">
+           						    <br></br>
+                					<div style="border-bottom: 1px solid black;"></div>
+                					<br></br>
+           						</div>
+       						 </div>
+	            			 <div class="row">
+	            			    <div class="col-xs-6">
+	            					<span><strong>HOTEL DETAILS</strong></span><br></br>
+	            			    	<span t-field="o.hotel"/><br></br>
+	            			    	<span t-field="o.hotel_id.addressLine1"/><br></br>
+	            			    	<span t-field="o.hotel_id.cityName"/><br></br>
+	            			    	<span t-field="o.hotel_id.zipcode"/>
+	            			    	Tel: <span t-field="o.hotel_id.phone"/><br></br>
+	            			    </div>
+	            			 </div>
+	            			 <div class="row zero_min_height">
+           						<div class="col-xs-12">
+                					<div style="border-bottom: 1px solid black;"></div>
+                					<br></br>
+           						</div>
+       						 </div>
+	            			 <div class="row">
+	            				<div class="col-xs-4">
+	            					<span><strong>Check in: </strong></span>
+	            					<span t-field="o.check_in"/><br></br>
+	            				</div>
+	            				<div class="col-xs-4">
+	            					<span><strong>Check out: </strong></span>
+	            					<span t-field="o.check_out"/><br></br>
+	            				</div>
+	            				<div class="col-xs-4">
+	            					<span><strong>Number of Nights: </strong></span>
+	            					<span t-field="o.no_of_nights"/><br></br>
+	            				</div>
+	            			 </div>
+	            			 <div class="row zero_min_height">
+           						<div class="col-xs-12">
+           						    <br></br>
+                					<div style="border-bottom: 1px solid black;"></div>
+                					<br></br>
+                					<br></br>
+           						</div>
+       						 </div>
+	            			 <table class="table" border="1" style="border:1px solid black;border-collapse:collapse;">
+	            			 	<thead>
+                    				<tr>
+                        				<th class="text-center" style="border:1px solid black;">Room</th>
+                        				<th class="text-center" style="border:1px solid black;">Client Name</th>
+                        				<th class="text-center" style="border:1px solid black;">Status</th>
+                        				<th class="text-center" style="border:1px solid black;">Passengers</th>
+                        				<th class="text-center" style="border:1px solid black;">Board</th>
+                    				</tr>
+                    			</thead>
+                    			<tbody>
+               						<tr t-foreach="o.booked_rooms" t-as="lines">
+               						    <td style="border:1px solid black;" class="text-center">
+               						    	<span t-field="lines.name"/>
+               						    </td>
+               						    <td style="border:1px solid black;" class="text-center">
+               						    	<span t-field="o.holder_name"/>  
+											<span t-field="o.holder_surname"/>
+               						    </td>
+               						    <td style="border:1px solid black;" class="text-center">
+               						    	<span t-field="lines.boards"/>
+               						    </td>
+               						    <td style="border:1px solid black;" class="text-center">
+               						    	<span t-field="lines.status"/>
+               						    </td>
+               							<td style="border:1px solid black;" class="text-center">
+												<span t-field="lines.pax"/>  
+               							</td>
+                                	</tr>
+                                </tbody>
+	            			 </table>
+	            			 <!-- div class="row" name="total">
+                				<div class="col-xs-4 pull-right">
+                   					 <table class="table table-condensed">
+                        				<tr class="border-black">
+                            				<td><strong>Total Amount</strong></td>
+                            				<td class="text-right">
+                                			<span t-field="o.total_rate"/>
+                            				</td>
+                        				</tr>
+                    				</table>
+                				</div>
+            				</div-->
+            				<div class="row">
+	            				<div class="col-xs-4">
+	            					<span><strong>Remarks</strong></span>
+	            				</div>
+	            			</div>
+	            			<div class="row">
+	            			<br></br>
+	            				<span t-field="o.booked_rooms.rate_comments"/>
+	            			 </div>
+            		         <div class="row zero_min_height">
+           						<div class="col-xs-12">
+           						    <br></br>
+                					<div style="border-bottom: 1px solid black;"></div>
+           						</div>
+       						 </div>
+	            			  <div class="row">
+	            				<div>
+	            				<br></br>
+	            					"Payable through <span t-field="o.supplier_name"/>, acting as agent for the service operating company, details of which can be provided upon request". VAT: <span t-field="o.supplier_vatNumber"/> Reference: <span t-field="o.reference"/>
+	            				</div>
+	            			 </div>
+	            			  <div>
+	            			  </div>
+ 						</div>
+                 	</t>
+                 	</t>
+  				<!--/t--><!-- header close -->
+  			</t>
+       </template>
+    </data>
+</openerp>

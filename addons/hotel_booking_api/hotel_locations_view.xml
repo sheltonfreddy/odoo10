@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hotel_location_view_form" model="ir.ui.view">
+            <field name="name">hotel_location.view.form</field>
+            <field name="model">hotel.location</field>
+            <field name="arch" type="xml">
+                <form string="Hotel Location">
+                    <group col="4">
+                    	<group col="2" colspan="2">
+	                        <field name="name"/>
+	                        <field name="code"/>
+	                        <field name="isoCode"/>
+	                        <field name="country"/>
+	                    </group>
+	                    <group col="2" colspan="2">
+	                        <field name="tourico_name"/>
+	                        <field name="tourico_code"/>
+	                        <field name="tourico_country"/>
+	                        <field name="tourico_destinationId"/>
+	                    </group>
+                        <button name="get_location" type="object" string="Hotel Details"/>
+                        <button name="get_hotels" type="object" string="Import Hotel Data"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+         <record id="hotel_location_view_tree" model="ir.ui.view">
+            <field name="name">hotel_location.view.tree</field>
+            <field name="model">hotel.location</field>
+            <field name="arch" type="xml">
+                <tree string="Hotel Location">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="isoCode"/>
+                    <field name="country"/>
+                    <field name="tourico_destinationId"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hotel_location_view_search" model="ir.ui.view">
+            <field name="name">hotel_location.view.search</field>
+            <field name="model">hotel.location</field>
+            <field name="arch" type="xml">
+                <search string="Hotel Location">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="isoCode"/>
+                    <field name="country"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_hotel_location" model="ir.actions.act_window">
+            <field name="name">Hotel Location</field>
+            <field name="res_model">hotel.location</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hotel_location_view_search"/>
+        </record>
+
+        <menuitem action="action_hotel_location" id="menu_hotel_location" 
+        		parent="menu_configuration" name="Hotel Location" 
+        		sequence="10" groups="base.group_erp_manager"/>
+        		
+        <record id="action_location_country" model="ir.actions.act_window">
+            <field name="name">Location Country</field>
+            <field name="res_model">location.country</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_location_country" id="menu_location_country" 
+        		parent="menu_configuration" name="Location Country" 
+        		sequence="11" groups="base.group_erp_manager"/>
+
+    </data>
+</openerp>
