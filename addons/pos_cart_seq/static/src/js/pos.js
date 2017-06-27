@@ -23,11 +23,11 @@ models.Order = models.Order.extend({
     add_orderline: function(line){
     	
     	var orderline = _super_order.add_orderline.apply(this,arguments);
-    	console.log("OOOOOOOOOOO",orderline)
+    	//console.log("OOOOOOOOOOO",orderline)
     	this.orderlines.add(line);
         var orderlines = this.orderlines.models
         for (var i=0;i<orderlines.length;i++){
-        	console.log(orderlines[i],"iiiiiiiiiiiii.")
+        	//console.log(orderlines[i],"iiiiiiiiiiiii.")
         	orderlines[i]['line_no'] = i+1
         }
         this.set('orderLines').models =orderlines
@@ -85,7 +85,7 @@ var _super_orderline = models.Orderline.prototype;
 models.Orderline = models.Orderline.extend({
 	
 	initialize: function(attr, options) {
-		console.log("iiiiiiiiiiii")
+		//console.log("iiiiiiiiiiii")
 		_super_orderline.initialize.call(this,attr, options);
 		this.line_no = options.line_no;
 	},
@@ -93,7 +93,7 @@ models.Orderline = models.Orderline.extend({
 	set_quantity: function(quantity){
         this.order.assert_editable();
         if(quantity === 'remove'){
-        	console.log('222-----')
+        	//console.log('222-----')
             this.order.remove_orderline(this);
             var orderlines = this.order.orderlines.models;
             for (var i=0;i< orderlines.length;i++){
