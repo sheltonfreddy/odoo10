@@ -52,6 +52,7 @@ class acivity_booking(models.Model):
         except:
             raise osv.except_osv(_('Error'), _('Please check person selection and ages'))
         self.search_acivity_turico()
+        print "ffffffffffff"
         #self.search_activity_hotelbeds()
         return True
     
