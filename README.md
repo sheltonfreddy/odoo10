@@ -1,5 +1,5 @@
 # [![Runbot Status](https://runbot.odoo-community.org/runbot/badge/flat/${REPO_ID}/${BRANCH_NAME}.svg)](https://runbot.odoo-community.org/runbot/repo/github-com-oca-${REPO_NAME}-${REPO_ID})
-[![Build Status](https://travis-ci.org/sheltonfreddy/odoo10.svg?branch=master)(https://travis-ci.org/sheltonfreddy/odoo10)]
+[![Build Status](https://travis-ci.org/sheltonfreddy/odoo10.svg?branch=master)](https://travis-ci.org/sheltonfreddy/odoo10)
 # [![codecov](https://codecov.io/gh/sheltonfreddy/odoo10)](https://codecov.io/gh/sheltonfreddy/odoo10)
 
 # ${REPO_NAME_VERBOSE}
