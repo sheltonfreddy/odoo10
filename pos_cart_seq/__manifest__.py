@@ -7,7 +7,7 @@
     """,
     'category': 'Point of Sale',
     'version': '1.0',
-    'author' : 'Shelton',
+    'author': 'Shelton',
     'depends': ['point_of_sale'],
     'data': [
         'views/pos_cart_seq_templates.xml',
